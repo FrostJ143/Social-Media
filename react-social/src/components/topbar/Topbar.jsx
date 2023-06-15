@@ -1,11 +1,10 @@
-import "./topbar.scss";
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import ChatIcon from '@mui/icons-material/Chat';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import "./topbar.css";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+import ChatIcon from "@mui/icons-material/Chat";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 function Topbar() {
-
     return (
         <div className="topbarContainer">
             <div className="topbarLeft">
@@ -13,8 +12,8 @@ function Topbar() {
             </div>
             <div className="topbarCenter">
                 <div className="searchbar">
-                    <SearchIcon className="searchIcon"/>
-                    <input type="text" placeholder="Search for friends, post or video" className="searchInput"/>
+                    <SearchIcon className="searchIcon" />
+                    <input type="text" placeholder="Search for friends, post or video" className="searchInput" />
                 </div>
             </div>
             <div className="topbarRight">
@@ -39,7 +38,7 @@ function Topbar() {
                 <img src="/assets/person/1.jpeg" alt="" className="topbarImg" />
             </div>
         </div>
-    )
+    );
 }
 
 export default Topbar;
