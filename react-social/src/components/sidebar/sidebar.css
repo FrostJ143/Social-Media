@@ -1,6 +1,9 @@
 .sidebar {
     flex: 2.8;
     overflow-y: hidden;
+    position: sticky;
+    top: 50px;
+    height: calc(100vh - 50px);
 }
 
 .sidebar:hover {
@@ -17,12 +20,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 179, 179);
+    /* background-color: rgb(179, 179, 179); */
     border-radius: 10px;
 }
 
 .sidebarWrapper {
-    /* width: calc(100% - 20px); */
+    width: calc(100% - 20px);
     padding: 20px 0px 20px 20px;
 }
 
@@ -54,18 +57,4 @@
 
 .sidebarHr {
     margin: 20px 0;
-}
-
-.sidebarFriend {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.sidebarFriendImg {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 8px;
 }
