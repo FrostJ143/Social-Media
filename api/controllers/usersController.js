@@ -2,8 +2,10 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 const getUser = async (req, res) => {
+    const username = req.query.username;
+    const userID = req.query.userID;
     try {
-        const foundUser = await User.findOne({ _id: req.params.id });
+        const foundUser = userID ? await User.findOne({ _id: userID }) : await User.findOne({ username: username });
         res.status(200).json(foundUser);
     } catch (error) {
         res.status(404).json(error);

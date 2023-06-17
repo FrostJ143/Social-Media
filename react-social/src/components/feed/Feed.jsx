@@ -9,7 +9,7 @@ function Feed({ username }) {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-            const res = username ? await axios.get(`/posts/profile/sang`) : await axios.get("posts/timeline/64888427d80e688630ff162f");
+            const res = username ? await axios.get(`/posts/profile/${username}`) : await axios.get("posts/timeline/64888427d80e688630ff162f");
             setPosts(res.data);
         };
         fetchData();

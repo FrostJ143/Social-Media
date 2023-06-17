@@ -6,40 +6,39 @@ const registerUser = async (req, res) => {
     const user = {
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword
-    }
+        password: hashedPassword,
+    };
 
     try {
         await User.create(user);
-        res.status(201).json(user);
+        return res.status(201).json(user);
     } catch (error) {
-        console.log(error);
-        res.sendStatus(404);
+        return res.sendStatus(404);
     }
-}
+};
 
 const loginUser = async (req, res) => {
-    const {username, email, password} = req.body
-    
-    if (!username || !password) {
-        res.status(404).json({message: "Username and password are required!"});
+    const { username, email, password } = req.body;
+
+    if (!email || !password) {
+        res.status(404).json({ message: "Username and password are required!" });
     }
 
     try {
-        const foundUser = await User.findOne({username});
+        const foundUser = await User.findOne({ email });
         if (!foundUser) {
-            return res.status(404).json({message: `Could not find user with username: ${username}`});
+            return res.status(404).json({ message: `Could not find user with email: ${email}` });
         }
-        
+
         const matchPassword = await bcrypt.compare(password, foundUser.password);
         if (!matchPassword) {
-            return res.status(404).json({message: "Wrong password!"});
+            return res.status(404).json({ message: "Wrong password!" });
         }
-        
+
         res.send("Login successfully");
     } catch (error) {
         res.status(500).json(error);
     }
-}
+};
 
-module.exports = {registerUser, loginUser};
+module.exports = { registerUser, loginUser };

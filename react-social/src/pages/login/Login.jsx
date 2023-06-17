@@ -1,8 +1,22 @@
 import "./login.css";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef, useContext } from "react";
+import { loginCall } from "../../apiCalls";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
+    const email = useRef();
+    const password = useRef();
+
+    const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
+    const handleSubmit = (e) => {
+        loginCall({ email: email.current.value, password: password.current.value }, dispatch);
+        e.preventDefault();
+    };
+
+    console.log(user);
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -11,13 +25,13 @@ function Login() {
                     <span className="loginDesc">Connect with friends and the world around you on Sangsocial</span>
                 </div>
                 <div className="loginRight">
-                    <div className="loginBox">
-                        <input placeholder="Email" className="loginInput" />
-                        <input placeholder="Password" className="loginInput" />
-                        <button className="loginButton">Log In</button>
+                    <form onSubmit={handleSubmit} className="loginBox">
+                        <input placeholder="Email" type="email" required className="loginInput" ref={email} />
+                        <input placeholder="Password" type="password" required className="loginInput" ref={password} />
+                        <button className="loginButton">{isFetching ? "Loading" : "Log In"}</button>
                         <span className="loginForgot">Forgot Password?</span>
                         <button className="loginRegisterButton">Create New Account</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
