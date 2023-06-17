@@ -1,5 +1,6 @@
-.profile {
+.profileContainer {
     display: flex;
+    width: 100%;
 }
 
 .profileRight {

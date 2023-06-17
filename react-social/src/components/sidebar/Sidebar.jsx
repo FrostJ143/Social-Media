@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import {Users} from "../../dummyData";
+import { Users } from "../../dummyData";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
@@ -56,8 +56,8 @@ function Sidebar() {
                 <button className="sidebarButton">Show More</button>
                 <hr className="sidebarHr" />
                 <ul className="sidebarFriendsList">
-                    {Users.map(user => {
-                        return <CloseFriend data={user}/>
+                    {Users.map((user) => {
+                        return <CloseFriend key={user.id} data={user} />;
                     })}
                 </ul>
             </div>

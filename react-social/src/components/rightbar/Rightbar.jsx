@@ -2,7 +2,8 @@ import "./rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
-function Rightbar() {
+function Rightbar({ profile }) {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const HomeRightbar = () => {
         return (
             <>
@@ -16,7 +17,7 @@ function Rightbar() {
                 <h4 className="rightbarTitle">Online friends</h4>
                 <ul className="rightbarFriendList">
                     {Users.map((user) => {
-                        return <Online data={user} />;
+                        return <Online key={user.id} data={user} />;
                     })}
                 </ul>
             </>
@@ -74,9 +75,7 @@ function Rightbar() {
 
     return (
         <div className="rightbar">
-            <div className="rightbarWrapper">
-                <ProfileRightbar />
-            </div>
+            <div className="rightbarWrapper">{profile ? <ProfileRightbar /> : <HomeRightbar />}</div>
         </div>
     );
 }

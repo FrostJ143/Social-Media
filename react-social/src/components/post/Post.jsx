@@ -1,12 +1,23 @@
 import "./post.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Users } from "../../dummyData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 
-function Post({ data }) {
-    const user = Users.find((user) => user.id === data.userId);
-    const [like, setLike] = useState(data.like);
+function Post({ post }) {
+    const [user, setUser] = useState({});
+    const [like, setLike] = useState(post?.likes.length);
     const [isLiked, setIsLiked] = useState(false);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await axios.get(`/users/${post.userID}`);
+            setUser(res.data);
+        };
+        fetchUser();
+    }, [post.userID]);
 
     const likeHandler = () => {
         setLike(isLiked ? like - 1 : like + 1);
@@ -18,17 +29,19 @@ function Post({ data }) {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img src={user.profilePicture} alt="" className="postProfileAvatar" />
+                        <Link to={`/profile/${user.username}`}>
+                            <img src={user.profilePicture || PF + "person/noAvatar.jpg"} alt="" className="postProfileAvatar" />
+                        </Link>
                         <span className="postUsername">{user.username}</span>
-                        <span className="postDate">{data.date}</span>
+                        <span className="postDate">{format(post.createAt)}</span>
                     </div>
                     <div className="postTopRight">
                         <MoreVertIcon />
                     </div>
                 </div>
                 <div className="postMiddle">
-                    <span className="postText">{data?.desc}</span>
-                    <img src={data.photo} alt="" className="postImg" />
+                    <span className="postText">{post?.desc}</span>
+                    <img src={PF + post?.photo} alt="" className="postImg" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
@@ -37,7 +50,7 @@ function Post({ data }) {
                         <span className="postLikeCounter">{like} people like it</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">{data.comment} comments</span>
+                        <span className="postCommentText">{post?.comment} comments</span>
                     </div>
                 </div>
             </div>
