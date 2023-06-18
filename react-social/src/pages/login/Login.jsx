@@ -1,14 +1,14 @@
 import "./login.css";
-import axios from "axios";
-import { useEffect, useRef, useContext } from "react";
+import { useRef, useContext } from "react";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Login() {
     const email = useRef();
     const password = useRef();
 
-    const { user, isFetching, error, dispatch } = useContext(AuthContext);
+    const { user, isFetching, dispatch } = useContext(AuthContext);
 
     const handleSubmit = (e) => {
         loginCall({ email: email.current.value, password: password.current.value }, dispatch);
@@ -28,7 +28,7 @@ function Login() {
                     <form onSubmit={handleSubmit} className="loginBox">
                         <input placeholder="Email" type="email" required className="loginInput" ref={email} />
                         <input placeholder="Password" type="password" required className="loginInput" ref={password} />
-                        <button className="loginButton">{isFetching ? "Loading" : "Log In"}</button>
+                        <button className="loginButton">{isFetching ? <CircularProgress color="inherit" /> : "Log In"}</button>
                         <span className="loginForgot">Forgot Password?</span>
                         <button className="loginRegisterButton">Create New Account</button>
                     </form>

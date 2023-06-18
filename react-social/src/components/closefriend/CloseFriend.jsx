@@ -5,7 +5,7 @@ function CloseFriend({ data }) {
 
     return (
         <li className="sidebarFriend">
-            <img src={PF + data.profilePicture} alt="" className="sidebarFriendImg" />
+            <img crossOrigin="anonymous" src={PF + data.profilePicture} alt="" className="sidebarFriendImg" />
             <span className="sidebarFriendName">{data.username}</span>
         </li>
     );

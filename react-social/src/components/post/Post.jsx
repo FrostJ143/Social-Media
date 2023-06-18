@@ -1,15 +1,22 @@
 import "./post.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { toggleLikePostCall } from "../../apiCalls";
+import { AuthContext } from "../../context/AuthContext";
 
 function Post({ post }) {
     const [user, setUser] = useState({});
     const [like, setLike] = useState(post?.likes.length);
     const [isLiked, setIsLiked] = useState(false);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const { user: currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        setIsLiked(post.likes.includes(currentUser._id));
+    }, [currentUser._id]);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -20,6 +27,7 @@ function Post({ post }) {
     }, [post.userID]);
 
     const likeHandler = () => {
+        toggleLikePostCall(post._id, currentUser._id);
         setLike(isLiked ? like - 1 : like + 1);
         setIsLiked(!isLiked);
     };
@@ -30,7 +38,12 @@ function Post({ post }) {
                 <div className="postTop">
                     <div className="postTopLeft">
                         <Link to={`/profile/${user.username}`}>
-                            <img src={user.profilePicture || PF + "person/noAvatar.jpg"} alt="" className="postProfileAvatar" />
+                            <img
+                                crossOrigin="anonymous"
+                                src={user.profilePicture ? PF + user.profilePicture : PF + "person/noAvatar.jpg"}
+                                alt=""
+                                className="postProfileAvatar"
+                            />
                         </Link>
                         <span className="postUsername">{user.username}</span>
                         <span className="postDate">{format(post.createAt)}</span>
@@ -41,7 +54,7 @@ function Post({ post }) {
                 </div>
                 <div className="postMiddle">
                     <span className="postText">{post?.desc}</span>
-                    <img src={PF + post?.photo} alt="" className="postImg" />
+                    <img crossOrigin="anomynous" src={PF + post?.img} alt="" className="postImg" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">

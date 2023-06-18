@@ -3,7 +3,20 @@ import { useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
 const INIT_STATE = {
-    user: null,
+    user: {
+        _id: "648ea1f9a7206ef8cee240cf",
+        username: "bin123",
+        email: "bin123@gmail.com",
+        password: "$2b$10$LJyEunQKdMgNovOXgcVx/OwOI3pI70S6adNJI1UYVjnfAAGJlzUzS",
+        followers: ["64888427d80e688630ff162f"],
+        following: [],
+        isAdmin: false,
+        profilePicture: "",
+        coverPicture: "",
+        createdAt: "2023-06-18T06:19:37.579Z",
+        updatedAt: "2023-06-18T06:39:11.245Z",
+        __v: 1,
+    },
     isFetching: false,
     error: null,
 };
