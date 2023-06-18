@@ -8,7 +8,7 @@ const INIT_STATE = {
         username: "bin123",
         email: "bin123@gmail.com",
         password: "$2b$10$LJyEunQKdMgNovOXgcVx/OwOI3pI70S6adNJI1UYVjnfAAGJlzUzS",
-        followers: ["64888427d80e688630ff162f"],
+        followers: [],
         following: [],
         isAdmin: false,
         profilePicture: "",

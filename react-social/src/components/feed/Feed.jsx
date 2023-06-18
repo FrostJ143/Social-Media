@@ -20,12 +20,12 @@ function Feed({ username }) {
             );
         };
         fetchData();
-    }, []);
+    }, [username]);
 
     return (
         <div className="feed">
             <div className="feedWrapper">
-                <Share />
+                {user.username === username && <Share />}
                 {posts.map((post) => {
                     return <Post key={post._id} post={post} />;
                 })}

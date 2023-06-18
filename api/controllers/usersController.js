@@ -53,6 +53,25 @@ const updateUser = async (req, res) => {
     }
 };
 
+getUserFriends = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const friends = await Promise.all(
+            user.following.map((friendID) => {
+                return User.findById(friendID);
+            })
+        );
+        let friendsList = [];
+        friends.forEach((friend) => {
+            const { _id, username, profilePicture } = friend;
+            friendsList.push({ _id, username, profilePicture });
+        });
+        res.status(200).json(friendsList);
+    } catch (error) {
+        res.status(404).json(error);
+    }
+};
+
 const followUser = async (req, res) => {
     if (req.body.userID !== req.params.id) {
         try {
@@ -97,4 +116,4 @@ const unfollowUser = async (req, res) => {
     }
 };
 
-module.exports = { updateUser, deleteUser, getUser, getAllUser, followUser, unfollowUser };
+module.exports = { updateUser, deleteUser, getUser, getAllUser, followUser, unfollowUser, getUserFriends };

@@ -15,11 +15,10 @@ function Profile() {
     useEffect(() => {
         const fetchUser = async () => {
             const res = await axios.get(`/users?username=${username}`);
-            console.log(res.data);
             setUser(res.data);
         };
         fetchUser();
-    }, []);
+    }, [username]);
 
     return (
         <div className="profile">
@@ -29,8 +28,12 @@ function Profile() {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img src={`${PF}post/3.jpeg`} alt="" className="profileCoverImg" />
-                            <img src={`${PF}person/7.jpeg`} alt="" className="profileUserImg" />
+                            <img src={user.coverPicture ? PF + user.coverPicture : PF + "/noCover.jpg"} alt="" className="profileCoverImg" />
+                            <img
+                                src={user.profilePicture ? PF + user.profilePicture : PF + "/person/noAvatar.jpg"}
+                                alt=""
+                                className="profileUserImg"
+                            />
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{user.username}</h4>
@@ -39,7 +42,7 @@ function Profile() {
                     </div>
                     <div className="profileRightBottom">
                         <Feed username={username} />
-                        <Rightbar user={user} />
+                        {user !== {} && <Rightbar user={user} />}
                     </div>
                 </div>
             </div>

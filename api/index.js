@@ -28,8 +28,10 @@ const corsOptions = {
     },
 };
 app.use(cors(corsOptions));
+
 // Protect app from toxic request headers
-// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
 // Logger for request
 app.use(morgan("common"));
 app.use("/images", express.static(path.join(__dirname, "public/images")));
