@@ -17,7 +17,7 @@ function Rightbar({ user }) {
 
     useEffect(() => {
         setIsFollow(currentUser.following.includes(user?._id));
-    }, [currentUser.following, user._id]);
+    }, [currentUser.following, user]);
 
     const HomeRightbar = () => {
         return (
@@ -66,7 +66,7 @@ function Rightbar({ user }) {
                 }
             };
             getFriends();
-        }, [user._id]);
+        }, [user]);
 
         return (
             <>

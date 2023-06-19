@@ -1,6 +1,7 @@
 import "./share.css";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
+import CancelIcon from "@mui/icons-material/Cancel";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useContext, useRef, useState } from "react";
@@ -51,6 +52,12 @@ function Share() {
                     <input type="text" placeholder={`What's in your mind, ${user.username}?`} className="shareInput" ref={desc} />
                 </div>
                 <hr className="shareHr" />
+                {file && (
+                    <div className="shareImgContainer">
+                        <img src={URL.createObjectURL(file)} alt="shareImg" className="shareImg" />
+                        <CancelIcon onClick={() => setFile(null)} />
+                    </div>
+                )}
                 <form className="shareBottom" onSubmit={handleSubmit}>
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOption">
@@ -61,7 +68,10 @@ function Share() {
                                 type="file"
                                 id="file"
                                 accept=".jpg,.png,.jpeg"
-                                onChange={(e) => setFile(e.target.files[0])}
+                                onChange={(e) => {
+                                    setFile(e.target.files[0]);
+                                    e.target.value = null;
+                                }}
                             />
                         </label>
                         <div className="shareOption">
